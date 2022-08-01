@@ -1,0 +1,69 @@
+// try in console  For PUT API
+// fetch('http://localhost:5000/user/update/2sg458ftfdsw3',{
+// method : 'PUT',
+// headers : {
+//     'Content-Type' : 'application/json' 
+// }
+//  })
+//  .then(res => res.json()) 
+//  .then(res => console.log(res))
+
+//FOR POST API
+
+// fetch('http://localhost:5000/user/add',{
+// method : 'POST',
+// headers : {
+//     'Content-Type' : 'application/json' 
+// },body : JSON.stringify({id:"2sg458sfdfdsw3",name:"sheryar"})
+//  })
+//  .then(res => res.json()) 
+//  .then(res => console.log(res))
+
+// FOR DELETE API TRY IN CONSOLE
+
+// fetch('http://localhost:5000/user/delete/2sg458ftfdsw3',{
+// method : 'DELETE',
+// headers : {
+//     'Content-Type' : 'application/json' 
+// }
+//  })
+//  .then(res => res.json()) 
+//  .then(res => console.log(res))
+
+const mocData = [{
+    id: 'q12wsafdxs',
+    name: 'shery',
+}, {
+    id: '1r565er57',
+    name: 'ubaid',
+    title: 'headphones',
+}, {
+    id: 'q12yg5sf7dxs',
+    name: 'saif',
+}, {
+    id: '2sg5dg3tfdsw3',
+    name: 'mughal',
+}]
+
+
+
+
+router.put('/update/:id',(req,res)=>{
+    const id = req.params.id
+    const user = mocData.find(d => d.id == req.params.id)
+    res.send(user)
+})
+
+
+router.delete('/delete/:id',(req,res)=>{
+    const user = mocData.filter(d=> d.id != req.params.id)
+    res.send(mocData)
+})
+
+
+// in admin dashboard 
+user,orders,products
+total sales,pending orders,total users
+delivered orders...
+
+//optional functionaliy : firebase notification
