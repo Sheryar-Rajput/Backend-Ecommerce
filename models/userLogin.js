@@ -21,10 +21,6 @@ const UserSchema = new Schema({
     type: Number,
     required: true,
     maxlength: 11,
-  },
-  tokens: {
-    type: Array,
-    default: []
   }
 })
 

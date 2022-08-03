@@ -11,9 +11,12 @@ const Orders = new Schema(
           validate: {
             validator: async (v) => {
               const _pro = await Products.findOne({_id : v});
+              
               if(_pro){
+                
                 return true;
               }
+
               return false;
             },
             message: props => `No such record exists!`
@@ -33,9 +36,25 @@ const Orders = new Schema(
     status : {
       type  : String,
       enum : ['PENDING','DELIVERED'],
-      default  : "PENDING"   
+      default  : "PENDING" ,
+
+    },
+    totalPrice : {
+      type : Number,
+      
     }
+
   }
 )
 const UserOrders = mongoose.model('orders', Orders)
 module.exports = UserOrders
+
+// async ()=>{
+//   //map
+//     const ids = this.products.map((v)=>{return v.id})
+//     console.log(ids);
+//     const _products = await Products.find({_id :{ 
+//       $in : ids
+//     }})
+    
+// }
