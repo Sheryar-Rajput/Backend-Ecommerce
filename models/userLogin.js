@@ -41,8 +41,7 @@ UserSchema.methods.generateToken = function () {
   const user = this
   const { _id } = user
   const token = jwt.sign({ _id }, secret)
-  user.tokens.push(token)
-  return user.save().then(() => token)
+  return token
 }
 
 

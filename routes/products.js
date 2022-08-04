@@ -1,27 +1,28 @@
 const express = require('express')
 const router = express.Router()
-const UserProducts = require('../models/UserProducts')
+const { getProduct,
+        addproduct,
+        updateProduct,
+        deleteProduct } = require('../controller/productController')
 
 router.get('/', async (req, res) => {
-        const result = await UserProducts.find({})
+        const result = await getProduct()
         res.send(result)
-
-
 })
 router.post('/', async (req, res) => {
-        const { title, description, price, category} = req.body
-        const user = await UserProducts.create({ title, description, price, category})
-        res.send(user)
-})
-router.put('/:id', async(req, res) => {
-        const {id} = req.params
-        const update = req.body
-        const result = await UserProducts.findByIdAndUpdate(id, update,{new : true})
+        const data = req.body
+        const result = await addproduct(data)
         res.send(result)
 })
-router.delete('/:id',async(req,res)=>{
-        const {id} = req.params
-        const result = await UserProducts.findByIdAndDelete(id)
-    res.send(result)
-    })
+router.put('/:id', async (req, res) => {
+        const { id } = req.params
+        const update = req.body
+        const result = await updateProduct(id, update)
+        res.send(result)
+})
+router.delete('/:id', async (req, res) => {
+        const { id } = req.params
+        const result = await deleteProduct(id)
+        res.send(result)
+})
 module.exports = router

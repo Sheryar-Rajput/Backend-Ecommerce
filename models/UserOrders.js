@@ -49,12 +49,3 @@ const Orders = new Schema(
 const UserOrders = mongoose.model('orders', Orders)
 module.exports = UserOrders
 
-// async ()=>{
-//   //map
-//     const ids = this.products.map((v)=>{return v.id})
-//     console.log(ids);
-//     const _products = await Products.find({_id :{ 
-//       $in : ids
-//     }})
-    
-// }

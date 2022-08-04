@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const Users = require('../models/userLogin')
-const bcryptjs = require("bcryptjs")
+const {userLogin} = require('../controller/userController')
+const authorization = require('../config/verify')
 router.post('/signup', async (req, res) => {
   try {
     const user = await Users.create(req.body)
@@ -13,33 +14,24 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
   const { email, password } = req.body
   const result = await userLogin(email,password)
-  // const user = await Users.findOne({ email })
-  // if (!user) {
-  //   return res.send({ message: 'No user found. Please register!' })
-  // }
-  // const isAuthenticated =  bcryptjs.compareSync(password, user.password, );
-  // if (!isAuthenticated) {
-  //   return res.send({ message: 'invalid password ' })
-  // }
-  // const token = await user.generateToken()
-  // return (
-  //   res.send({user, current_token : token})
-  // )
+  const {token,user} = result
+  res.cookie("access_token", token, {
+    httpOnly: true,
+  })
+  res.send({user})
+  .status(200)
+  .json({ message: "Logged in successfully " })
+
 })
 
-router.post('/logout',async(req,res)=>{
+router.get('/logout',(req,res)=>{
  
-   const result =  Users.statics.removeToken=(token)=>{
-    const User = this;
-    decoded = jwt.verify(token, secret)
-  res
-    //get query document
-    //document.token fulan index
-    //db.collection('users').doc(decoded._id).set({ tokens:  }, { merge: true })
   
-    return User.findOneAndUpdate({ _id: decoded._id }, { $pull: { tokens: token } })
-  }
+    res.clearCookie("access_token").status(200).json({ message: "Successfully logged out" });
   
-})
+
+  })
+  
+
 module.exports = router
 

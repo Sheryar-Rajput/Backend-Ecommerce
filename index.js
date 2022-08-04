@@ -3,9 +3,11 @@ const express = require('express')
 const app = express()
 const db = require('./config/db')
 const cors = require('cors')
+var cookieParser = require('cookie-parser')
 app.use(cors({
   origin: '*'
-})); 
+}));
+app.use(cookieParser()) 
 db.connection.once('open', () => {
     console.log('db connected')
   })
