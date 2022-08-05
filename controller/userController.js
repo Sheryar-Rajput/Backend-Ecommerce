@@ -3,15 +3,17 @@ const bcryptjs = require("bcryptjs")
 
 
 const userLogin = async(email,password)=>{
-    const user = await Users.findOne({ email })
+    const user = await Users.findOne({ email }).select('-__v')
  if (!user) {
     return res.send({ message: 'No user found. Please register!' })
   }
-  const isAuthenticated =  bcryptjs.compareSync(password, user.password, );
+  const isAuthenticated =  bcryptjs.compareSync(password, user.password);
+  user.password = undefined;
   if (!isAuthenticated) {
     return res.send({ message: 'invalid password ' })
   }
-  const token = await user.generateToken()
+  const token = await user.generateToken();
+  
   return { token,user
   }
 }

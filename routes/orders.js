@@ -1,13 +1,15 @@
 const express = require('express')
 const router = express.Router()
 const UserOrder = require('../models/UserOrders')
+const authorization = require('../config/verify')
+
 const { getOrder, addOrder, updateOrder, deleteOrder,getOrderDetails } = require('../controller/orderController')
 
 router.get('/', async (req, res) => {
     const result = await getOrder()
     res.send(result)
 })
-router.post('/', async (req, res) => {
+router.post('/',authorization, async (req, res) => {
     const data = req.body
     const result = await addOrder(data)
     res.send(result)

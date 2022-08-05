@@ -9,12 +9,12 @@ const authorization = (req, res, next) => {
     }
     try {
         const data = jwt.verify(token, secret);
-        console.log(data)
+        
         return next()
-        // Almost done
+        
     } catch {
         return res.sendStatus(403);
     }
 }
 
-module.exports.authorization = authorization
+module.exports = authorization

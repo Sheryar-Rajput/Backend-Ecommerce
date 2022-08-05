@@ -18,13 +18,13 @@ router.post('/login', async (req, res) => {
   res.cookie("access_token", token, {
     httpOnly: true,
   })
-  res.send({user})
+  res
   .status(200)
-  .json({ message: "Logged in successfully " })
+  .json({user, message: "Logged in successfully " })
 
 })
 
-router.get('/logout',(req,res)=>{
+router.get('/logout',authorization,(req,res)=>{
  
   
     res.clearCookie("access_token").status(200).json({ message: "Successfully logged out" });
