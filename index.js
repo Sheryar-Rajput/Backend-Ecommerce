@@ -22,3 +22,7 @@ db.connection.once('open', () => {
 
 app.use(express.json())
 app.use('/' , require('./routes'))
+app.use(async(err,req,res,next)=>{
+console.log('caught')
+res.json(err.message).status(400)
+})    
